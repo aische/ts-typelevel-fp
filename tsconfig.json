@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es5",
+        "strict": true,
+        "noImplicitAny": true,
+        "sourceMap": false,
+        "lib": [
+            "es6"
+        ]
+    },
+    "include": [
+        "./src/**/*"
+    ]
+}

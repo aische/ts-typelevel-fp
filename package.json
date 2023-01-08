@@ -1,0 +1,14 @@
+{
+  "name": "ts-typelevel-fp",
+  "version": "1.0.0",
+  "description": "functional typelevel programming with higher kinded types",
+  "keywords": [
+    "typescript",
+    "hkt"
+  ],
+  "author": "Daniel van den Eijkel",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^4.9.4"
+  }
+}
