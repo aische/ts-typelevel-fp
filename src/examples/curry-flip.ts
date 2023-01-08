@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { $, FlipF, CurryF, UncurryF, $4 } from "../hkt";
 import { Tuple1F, Tuple2F, Tuple3F, Tuple4F } from "../lib/tuple";
 

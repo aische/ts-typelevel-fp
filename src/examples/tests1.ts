@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { $, $2, $3, $4, $5, ComposeF, FlipF, IdF, IfF, SCombinatorF } from "../hkt";
 import { Filter, FMap, FMapF, ReduceF, ReverseF, ZipWith } from "../lib/map-filter";
 import { Equals, ExtendsF, IsStringF } from "../lib/predicates";
