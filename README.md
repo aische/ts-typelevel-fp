@@ -30,4 +30,6 @@ type Input = ['hello', 123, 'world', null];
 type Output = FMap<Func, Input>; // ["hello()", 123, "world()", null]
 ```
 
+This project uses combinators like `CurryF`, `UncurryF`, `FlipF`, `ComposeF`, `SCombinatorF`, `IdF`, `ConstF` and `IfF` to allow point-free programming on the type-level.
+
 For more examples, see [tests1.ts](src/examples/tests1.ts)
