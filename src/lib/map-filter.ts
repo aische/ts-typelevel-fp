@@ -1,4 +1,4 @@
-import { AllKinds, AllKindsAbove1, Apply, Kind1, Kind2 } from "../hkt/core";
+import { AllKinds, Apply, Kind1 } from "../hkt/core";
 
 export const FilterF: unique symbol = Symbol();
 export type FilterF = typeof FilterF;

@@ -21,8 +21,6 @@ declare module '../hkt' {
         [ExtendsF]: Extends<T1, T2>
         [EqualsF]: Equals<T1, T2>
     }
-    interface Kind3Table<T1, T2, T3> {
-    }
 }
 
 export type IsString<T> = T extends string ? true : false;

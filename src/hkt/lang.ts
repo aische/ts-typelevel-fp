@@ -41,8 +41,6 @@ declare module './core' {
     interface Kind4Table<T1, T2, T3, T4> {
         [IfF]: T1 extends AllKinds ? T2 extends AllKinds ? T3 extends AllKinds ? If<T1, T2, T3, T4> : never : never : never;
     }
-    interface Kind5Table<T1, T2, T3, T4, T5> {
-    }
 }
 
 type If<P extends AllKinds, T extends AllKinds, E extends AllKinds, V> =
