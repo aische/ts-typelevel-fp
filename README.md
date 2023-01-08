@@ -16,9 +16,18 @@ declare module '../hkt' {
 }
 ```
 
+### Example using Filter:
+
 ```ts
 type Input = ['hello', 123, true, 'world', 234];
 type Output = Filter<IsStringF, Input> // ['hello', 'world']
+```
+
+### Example using FMap and branching:
+```ts
+type Func = $<$<$<IfF, IsStringF>, $2<AppendStringsF, '()'>>, IdF>;
+type Input = ['hello', 123, 'world', null];
+type Output = FMap<Func, Input>; // ["hello()", 123, "world()", null]
 ```
 
 For more examples, see [tests1.ts](src/examples/tests1.ts)
