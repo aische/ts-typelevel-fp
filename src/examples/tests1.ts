@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { $, $2, $3, $4, $5, ComposeF, FlipF, IdF, IfF, SCombinatorF } from "../hkt";
+import { $, $2, $3, $4, $5, ApplyF, ComposeF, FlipF, IdF, IfF, SCombinatorF } from "../hkt";
 import { Filter, FMap, FMapF, ReduceF, ReverseF, ZipWith } from "../lib/map-filter";
 import { DistributeF, Equals, ExtendsF, IsStringF } from "../lib/predicates";
-import { AppendStringsF, JoinStringsF, SplitStringF, StartsWithF, UppercaseF } from "../lib/strings";
+import { AppendStringsF, JoinStringsF, LowercaseF, SplitStringF, StartsWithF, UppercaseF } from "../lib/strings";
 import { Tuple1F, Tuple4F, Tuple5F } from "../lib/tuple";
 
 type AllTrue<T extends true[]> = T
@@ -82,4 +82,14 @@ type G2 = $<$<DistributeF, Tuple1F>, 1 | 2 | 3>
 type TestG = AllTrue<[
     Equals<G1, [1 | 2 | 3]>,
     Equals<G2, [1] | [2] | [3]>,
+]>
+
+type H1 = FMap<UppercaseF, ['hello', 'world']>
+type H2 = FMap<$<$<FlipF, ApplyF>, 'hElLo'>, [UppercaseF, LowercaseF, F1]>
+type H3 = ZipWith<ApplyF, [UppercaseF, LowercaseF, F1], ['Hello', 'World', 'Bye']>
+
+type TestH = AllTrue<[
+    Equals<H1, ["HELLO", "WORLD"]>,
+    Equals<H2, ["HELLO", "hello", "oLlEh"]>,
+    Equals<H3, ["HELLO", "world", "eyB"]>,
 ]>
