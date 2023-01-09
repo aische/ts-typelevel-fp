@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { $, $2, $3, $4, $5, ComposeF, FlipF, IdF, IfF, SCombinatorF } from "../hkt";
 import { Filter, FMap, FMapF, ReduceF, ReverseF, ZipWith } from "../lib/map-filter";
-import { Equals, ExtendsF, IsStringF } from "../lib/predicates";
+import { DistributeF, Equals, ExtendsF, IsStringF } from "../lib/predicates";
 import { AppendStringsF, JoinStringsF, SplitStringF, StartsWithF, UppercaseF } from "../lib/strings";
 import { Tuple1F, Tuple4F, Tuple5F } from "../lib/tuple";
 
@@ -74,4 +74,12 @@ type TestF = AllTrue<[
     Equals<$<F1, 'hello world'>, 'dlrow olleh'>,
     Equals<$<F2, 'hello'>, 'helloolleh'>,
     Equals<$<$<FMapF, F2>, ['hello', 'bla']>, ['helloolleh', 'blaalb']>,
+]>
+
+type G1 = $<Tuple1F, 1 | 2 | 3>
+type G2 = $<$<DistributeF, Tuple1F>, 1 | 2 | 3>
+
+type TestG = AllTrue<[
+    Equals<G1, [1 | 2 | 3]>,
+    Equals<G2, [1] | [2] | [3]>,
 ]>
