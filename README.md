@@ -1,7 +1,7 @@
 # ts-typelevel-fp
 ## Functional type-level programming with higher kinded types
 
-This project is about type-level programming in typescript. It uses module augmentation to create higher kinded types, similar to [ts-fp](https://github.com/gcanti/fp-ts).
+This project is about type-level programming in typescript. It uses module augmentation to create higher kinded types, similar to [fp-ts](https://github.com/gcanti/fp-ts).
 
 ```ts
 export type IsString<T> = T extends string ? true : false;
@@ -14,6 +14,12 @@ declare module '../hkt' {
         [IsStringF]: IsString<T>;
     }
 }
+```
+
+With `Apply` (and the shorthand `$`) a higher kinded type can be applied to a type:
+```
+type X = Apply<IsStringF, 'hello'>;
+type X = $<IsStringF, 'hello'>;
 ```
 
 ### Example using Filter:
