@@ -30,7 +30,6 @@ export type Kind4 = Kind4Keys | Apply<Kind5, any>
 export type Kind5 = Kind5Keys
 
 export type AllKinds = Kind1 | Kind2 | Kind3 | Kind4 | Kind5
-export type AllKindsAbove1 = Kind2 | Kind3 | Kind4 | Kind5
 
 export type Apply<F extends AllKinds, T> =
     F extends Kind1Keys ? Kind1Table<T>[F] :
