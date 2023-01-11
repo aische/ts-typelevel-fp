@@ -17,9 +17,22 @@ declare module '../hkt' {
 ```
 
 With `Apply` (and the shorthand `$`) a higher kinded type can be applied to a type:
-```
+```ts
 type X = Apply<IsStringF, 'hello'>;
+// or
 type X = $<IsStringF, 'hello'>;
+```
+
+Partial application:
+```ts
+type F = $<AppendStringsF, 'a'>
+type S = $<F, 'b'>  // 'ab'
+```
+
+Partial application of the second argument:
+```ts
+type F = $2<AppendStringsF, 'a'>
+type S = $<F, 'b'> // 'ba'
 ```
 
 ### Example using Filter:
