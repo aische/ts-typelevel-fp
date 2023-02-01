@@ -95,26 +95,54 @@ type TestH = AllTrue<[
     Equals<H3, ["HELLO", "world", "eyB"]>,
 ]>
 
-type I1 = $$$$<FoldF,
+// Fold takes 6 arguments. The first 4 arguments are
+// - predicate for detecting the base-case
+// - result value for the base case
+// - a function which takes the current input and the result of the recursive call and produces a result
+// - a function which should shrink the current input so it can be used as the input for the recursive call
+// The 5. Argument is a function which is used to make a recursive call.
+// The 6. Argument is the input
+// After partially applying Fold to the first 4 arguments, it has to be fixed by using FixF.
+// The result is a recursive function which can be applied to an input.
+
+// reverse string:
+type IFunc1 = $$$$<FoldF,
     $$<FlipF, ExtendsF, ''>,
     '',
     $$<ComposeF, $<FlipF, AppendStringsF>, FirstCharF>,
     WithoutFirstCharF
 >;
-type I2 = $<FixF, I1>
-type I3 = $<I2, 'hey'>
+type IFuncRecursive1 = $<FixF, IFunc1>
+type IResult1 = $<IFuncRecursive1, 'hey'>
 
-type I4 = $$$$<FoldF,
+// string to tuple:
+type IFunc2 = $$$$<FoldF,
     $$<FlipF, ExtendsF, ''>,
     [],
     $$<ComposeF, ConsF, FirstCharF>,
     WithoutFirstCharF
 >;
-type I5 = $<FixF, I4>
-type I6 = $<I5, 'hey'>
+type IFuncRecursive2 = $<FixF, IFunc2>
+type IResult2 = $<IFuncRecursive2, 'hey'>
 
+// indentity of string
+type IFunc3 = $$$$<FoldF,
+    $$<FlipF, ExtendsF, ''>,
+    '',
+    $$<ComposeF, AppendStringsF, FirstCharF>,
+    WithoutFirstCharF
+>;
+type IFunc3Recursive = $<FixF, IFunc3>
+// Actually boring, the result is just 'hello world' ....
+type IResult3 = $<IFunc3Recursive, 'hello world'>
+
+// .... but when it's composed with reverse-string before fixed to be recursive, the result is interesting
+type IFunc1And3Recursive = $<FixF, $$<ComposeF, IFunc1, IFunc3>>
+type IResult1And3 = $<IFunc1And3Recursive, 'hello world'>
 
 type TestI = AllTrue<[
-    Equals<I3, 'yeh'>,
-    Equals<I6, ['h', 'e', 'y']>,
+    Equals<IResult1, 'yeh'>,
+    Equals<IResult2, ['h', 'e', 'y']>,
+    Equals<IResult3, 'hello world'>,
+    Equals<IResult1And3, 'el oldrwolh'>,
 ]>
