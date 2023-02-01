@@ -140,9 +140,24 @@ type IResult3 = $<IFunc3Recursive, 'hello world'>
 type IFunc1And3Recursive = $<FixF, $$<ComposeF, IFunc1, IFunc3>>
 type IResult1And3 = $<IFunc1And3Recursive, 'hello world'>
 
+// uppercase of string
+type IFunc4 = $$$$<FoldF,
+    $$<FlipF, ExtendsF, ''>,
+    '',
+    $$<ComposeF, AppendStringsF, $$<ComposeF, UppercaseF, FirstCharF>>,
+    WithoutFirstCharF
+>;
+type IFunc4Recursive = $<FixF, IFunc4>
+type IResult4 = $<IFunc4Recursive, 'hello world'>
+
+type IFunc3And4Recursive = $<FixF, $$<ComposeF, IFunc3, IFunc4>>
+type IResult3And4 = $<IFunc3And4Recursive, 'hello world'>
+
 type TestI = AllTrue<[
     Equals<IResult1, 'yeh'>,
     Equals<IResult2, ['h', 'e', 'y']>,
     Equals<IResult3, 'hello world'>,
     Equals<IResult1And3, 'el oldrwolh'>,
+    Equals<IResult4, 'HELLO WORLD'>,
+    Equals<IResult3And4, 'hElLo wOrLd'>,
 ]>
