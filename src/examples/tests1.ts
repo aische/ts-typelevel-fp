@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { $, $2, $3, $4, $5, ApplyF, ComposeF, FlipF, IdF, IfF, SCombinatorF } from "../hkt";
-import { Filter, FMap, FMapF, ReduceF, ReverseF, ZipWith } from "../lib/map-filter";
+import { $, $$, $$$$, $2, $3, $4, $5, ApplyF, ComposeF, FixF, FlipF, IdF, IfF, SCombinatorF } from "../hkt";
+import { Filter, FMap, FMapF, FoldF, ReduceF, ReverseF, ZipWith } from "../lib/map-filter";
 import { DistributeF, Equals, ExtendsF, IsStringF } from "../lib/predicates";
-import { AppendStringsF, JoinStringsF, LowercaseF, SplitStringF, StartsWithF, UppercaseF } from "../lib/strings";
+import { AppendStringsF, FirstCharF, JoinStringsF, LowercaseF, SplitStringF, StartsWithF, UppercaseF, WithoutFirstCharF } from "../lib/strings";
 import { Tuple1F, Tuple4F, Tuple5F } from "../lib/tuple";
+import { ConsF } from "../lib/list";
 
 type AllTrue<T extends true[]> = T
 
@@ -92,4 +93,28 @@ type TestH = AllTrue<[
     Equals<H1, ["HELLO", "WORLD"]>,
     Equals<H2, ["HELLO", "hello", "oLlEh"]>,
     Equals<H3, ["HELLO", "world", "eyB"]>,
+]>
+
+type I1 = $$$$<FoldF,
+    $$<FlipF, ExtendsF, ''>,
+    '',
+    $$<ComposeF, $<FlipF, AppendStringsF>, FirstCharF>,
+    WithoutFirstCharF
+>;
+type I2 = $<FixF, I1>
+type I3 = $<I2, 'hey'>
+
+type I4 = $$$$<FoldF,
+    $$<FlipF, ExtendsF, ''>,
+    [],
+    $$<ComposeF, ConsF, FirstCharF>,
+    WithoutFirstCharF
+>;
+type I5 = $<FixF, I4>
+type I6 = $<I5, 'hey'>
+
+
+type TestI = AllTrue<[
+    Equals<I3, 'yeh'>,
+    Equals<I6, ['h', 'e', 'y']>,
 ]>
