@@ -27,6 +27,9 @@ export type ComposeF = typeof ComposeF;
 export const ApplyF: unique symbol = Symbol();
 export type ApplyF = typeof ApplyF;
 
+export const FixF: unique symbol = Symbol();
+export type FixF = typeof FixF;
+
 declare module './core' {
     interface Kind1Table<T> {
         [IdF]: T;
@@ -35,6 +38,7 @@ declare module './core' {
         [UncurryF]: T1 extends AllKinds ? T2 extends [infer A, infer B] ? Apply<Apply<T1, A>, B> : never : never;
         [ConstF]: T1;
         [ApplyF]: T1 extends AllKinds ? Apply<T1, T2> : never;
+        [FixF]: T1 extends AllKinds ? Apply<Apply<T1, Apply<FixF, T1>>, T2> : never;
     }
     interface Kind3Table<T1, T2, T3> {
         [FlipF]: T1 extends AllKinds ? Apply<Apply<T1, T3>, T2> : never;
