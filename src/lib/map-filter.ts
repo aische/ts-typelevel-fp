@@ -18,6 +18,9 @@ export type ZipWithF = typeof ZipWithF;
 export const ReverseF: unique symbol = Symbol();
 export type ReverseF = typeof ReverseF;
 
+export const FoldF: unique symbol = Symbol();
+export type FoldF = typeof FoldF;
+
 declare module '../hkt' {
     interface Kind1Table<T> {
         [ReverseF]: T extends any[] ? Reverse<T> : never;
@@ -30,6 +33,17 @@ declare module '../hkt' {
     interface Kind3Table<T1, T2, T3> {
         [ReduceF]: T1 extends AllKinds ? T3 extends any[] ? Reduce<T1, T2, T3> : never : 2;
         [ZipWithF]: T1 extends AllKinds ? T2 extends any[] ? T3 extends any[] ? ZipWith<T1, T2, T3> : never : never : never;
+    }
+    interface Kind6Table<T1, T2, T3, T4, T5, T6> {
+        [FoldF]: T1 extends AllKinds
+            ?  T3 extends AllKinds
+            ?  T4 extends AllKinds
+            ?  T5 extends AllKinds
+            ?  Fold<T1, T2, T3, T4, T5, T6>
+            : never
+            : never
+            : never
+            : never;
     }
 }
 
@@ -50,3 +64,7 @@ export type ZipWith<F extends AllKinds, XS extends any[], YS extends any[]> =
 
 export type Reverse<T extends any[]> =
     T extends [infer H, ...infer R] ? [...Reverse<R>, H] : []
+
+export type Fold<P extends AllKinds, E, F extends AllKinds, N extends AllKinds, R extends AllKinds, I> =
+    Apply<P, I> extends true ? E :
+    Apply<Apply<F, I>, Apply<R, Apply<N, I>>>
