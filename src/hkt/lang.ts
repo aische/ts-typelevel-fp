@@ -63,3 +63,9 @@ export type $2<F extends AllKinds, T> = Apply<Apply<FlipF, F>, T>
 export type $3<F extends AllKinds, T> = Apply<CurryF, Apply<Apply<FlipF, Apply<UncurryF, F>>, T>>
 export type $4<F extends AllKinds, T> = Apply<CurryF, Apply<CurryF, Apply<Apply<FlipF, Apply<UncurryF, Apply<UncurryF, F>>>, T>>>
 export type $5<F extends AllKinds, T> = Apply<CurryF, Apply<CurryF, Apply<CurryF, Apply<Apply<FlipF, Apply<UncurryF, Apply<UncurryF, Apply<UncurryF, F>>>>, T>>>>
+
+export type $$<F extends AllKinds, T1, T2> = Apply<Apply<F, T1>, T2>
+export type $$$<F extends AllKinds, T1, T2, T3> = Apply<Apply<Apply<F, T1>, T2>, T3>
+export type $$$$<F extends AllKinds, T1, T2, T3, T4> = Apply<Apply<Apply<Apply<F, T1>, T2>, T3>, T4>
+export type $$$$$<F extends AllKinds, T1, T2, T3, T4, T5> = Apply<Apply<Apply<Apply<Apply<F, T1>, T2>, T3>, T4>, T5>
+export type $$$$$$<F extends AllKinds, T1, T2, T3, T4, T5, T6> = Apply<Apply<Apply<Apply<Apply<Apply<F, T1>, T2>, T3>, T4>, T5>, T6>
